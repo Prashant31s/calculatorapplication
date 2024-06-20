@@ -8,7 +8,7 @@ const Display = ({ input, result }) => {
       <div className="text-white">{input}</div>
 
       {/* <div className='w-full '> */}
-      <div className="result ">{result}</div>
+      {/* <div className="result ">{result}</div> */}
       {/* </div> */}
       
     </div>

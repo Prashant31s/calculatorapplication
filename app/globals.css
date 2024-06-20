@@ -8,8 +8,10 @@ body {
     background-color: gray;
 }
 .calculator{
+
     background-color: #35383b;
     border-radius: 5px;
+    width: 400px ;
 }
 
 .display{

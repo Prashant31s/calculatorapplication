@@ -10,17 +10,56 @@ const calculatorReducer = (state = initialState, action) => {
   switch (action.type) {
     case 'ADD_DIGIT':
       let newInput;
-      if(state.input==='0'){
+      // console.log(action.payload);
+      // console.log(state.input);
+      if(state.input.length>=36){
+        return {
+          ...state
+        }
+      }
+      else if(state.input==='0'){
         newInput=action.payload;
+      }
+      
+      else if(action.payload==='.'){
+        let  cnt=0;
+        //console.log(state.input.length);
+        for(let i=0;i<state.input.length;i++){
+          if(state.input.charAt(i)==='.'){
+            cnt++;
+          }
+        }
+        console.log(cnt);
+        if(cnt){
+          return {
+            ...state
+          }
+        }
+        else{
+          newInput=state.input+action.payload;
+          console.log(newInput);
+
+          return {
+            ...state,
+            input: newInput
+          }
+          
+        }
+        // else{
+        //   console.log(state.input+action.payload);
+          newInput =state.input+action.paylaod;
+        // }
+        
       }
       else{
         if((state.input.charAt(state.input.length-1)==='+'|| (state.input.charAt(state.input.length-1))==='-'||(state.input.charAt(state.input.length-1))==='*' ||(state.input.charAt(state.input.length-1))==='/' )&& (action.payload==='+'||action.payload==='-'||action.payload==='/'||action.payload==='*')){
           newInput= state.input.slice(0,-1)+action.payload;
-        
+          
         }
          
          else{
           newInput = state.input+action.payload;
+          
           // console.log(state.input);
           // console.log(action.payload);
         }
@@ -31,6 +70,8 @@ const calculatorReducer = (state = initialState, action) => {
         ...state,
         input: newInput
       };
+
+
     case 'CLEAR_INPUT':
       return {
         ...state,
@@ -47,15 +88,25 @@ const calculatorReducer = (state = initialState, action) => {
         //   console.log(state.history[0].expression)
         //   console.log(expression)
         // }
+        //console.log(result.toString);
+        if(state.input===result.toString()){
+            return {
+              ...state,
+              result:result.toString(),
+              input:newInput,
+              history: [...state.history]
+            }
 
-        
+        }
+        let newInput=result.toString();
+        //console.log(newInput);
         if(state.history.length){
           //console.log(5); 
           if(state.history[state.history.length-1].expression!=expression){
             return{
               ...state,
               result: result.toString(),
-              //input:result.toString,
+              input: newInput,
               history: [...state.history, { expression, result: result.toString() }] 
             }
 
@@ -64,7 +115,7 @@ const calculatorReducer = (state = initialState, action) => {
             return {
               ...state,
               result:result.toString(),
-              //input:result.toString,
+              input:newInput,
               history: [...state.history]
             }
           }
@@ -74,7 +125,7 @@ const calculatorReducer = (state = initialState, action) => {
           return {
             ...state,
             result: result.toString(),
-            //input: result.toString,
+           input: newInput,
             history: [...state.history, { expression, result: result.toString() }]
           };
 
