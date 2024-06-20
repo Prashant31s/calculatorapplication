@@ -24,9 +24,12 @@ const calculatorReducer = (state = initialState, action) => {
       else if(action.payload==='.'){
         let  cnt=0;
         //console.log(state.input.length);
-        for(let i=0;i<state.input.length;i++){
+        for(let i=0;i<state.input.length;i++){  
           if(state.input.charAt(i)==='.'){
             cnt++;
+          }
+          else if(state.input.charAt(i)==='+'||state.input.charAt(i)==='-'||state.input.charAt(i)==='*'||state.input.charAt(i)==='/'||state.input.charAt(i)==='('){
+            cnt=0;
           }
         }
         console.log(cnt);
